@@ -1,99 +1,77 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0; margin: 0; box-sizing: border-box;
 }
 body {
-    background-color: #ebe9df;
+  background-color: #ebe9df;
 }
 header {
-  position: absolute;
-  top: 0;
-  right:0;
-  margin: 30px;
+  position: absolute; top: 0; right:0; margin: 30px;
 }
 header .fa-brands, header .fa-solid {
-  font-size: 30px;
-  color: rgb(92, 91, 91);
-  padding: 5px;
+  font-size: 30px; color: rgb(92, 91, 91); padding: 5px;
 }
 
 header .fa-brands:hover, header .fa-solid:hover {
   color: rgb(113, 111, 111);
 }
 #close {
-  font-size: 30px;
-  color: rgb(92, 91, 91);
-  margin: 30px;
-  float: right;
-  display: none;
+  font-size: 30px; color: rgb(92, 91, 91); margin: 30px; float: right; display: none;
 }
-
 .main {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
-.main .container {
-    width: 450px;
-    height: 450px; 
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
+.main .btn-container {
+  width: 450px; height: 450px; display: grid; grid-template-columns: auto auto; justify-content: center; align-items: center; gap: 30px;
 }
-.main .container .button-30 {
-  border-radius: 4px;
-  border-width: 0;
-  cursor: pointer;
-  height: 200px;
-  padding-left: 100px;
-  padding-right: 100px;
-  transition: box-shadow .15s,transform .15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  will-change: box-shadow,transform;
+.main .btn-container .button-30 {
+  border-radius: 4px; border-width: 0; cursor: pointer; height: 200px; padding-left: 100px; padding-right: 100px; transition: box-shadow .15s,transform .15s; user-select: none; -webkit-user-select: none; touch-action: manipulation; white-space: nowrap; will-change: box-shadow,transform;
 }
-.main .container .button-30:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #808084 0 -3px 0 inset;
-  transform: translateY(-2px);
+.main .btn-container .button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #808084b2 0 -8px 0 inset; transform: translateY(-2px);
 }
 
-.main .container .button-30:active {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
+.main .btn-container .button-30:active {
+  box-shadow: #D6D6E7 0 2px 3px inset; transform: translateY(2px);
 }
 .b1 {
-    background-color: #40DFEF;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,rgb(58, 150, 158) -4px -6px 0 inset;
+  background-color: #40DFEF; box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,rgb(58, 150, 158) -2px -10px 0 inset;
+}
+.b1.active {
+  background-color: #00fff7;
 }
 .b2 {
-    background-color: #B9F8D3;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#7da58e -4px -6px 0 inset;
+  background-color: #B9F8D3; box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#7da58e -2px -10px 0 inset;
+}
+.b2.active {
+  background-color: #66fba4;
 }
 .b3 {
-    background-color: #FFFBE7;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#b2afa1 -4px -6px 0 inset;
+  background-color: #FFFBE7; box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#b2afa1 -2px -10px 0 inset;
+}
+.b3.active {
+  background-color: #fff2b1;
 }
 .b4 {
-    background-color: #E78EA9;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #ba6c84 -4px -6px 0 inset;
+  background-color: #E78EA9; box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #ba6c84 -2px -10px 0 inset;
 }
-main .scores-container {
+.b4.active {
+  background-color: #f97099;
+}
+.main .scores-container {
   display: flex;
   justify-content: space-around;
   width: 425px;
   margin-top: 25px;
   font-size: 20px;
   color:slategrey;
+  visibility: hidden;
 }
-
+.main .startBtn {
+  padding: 10px 80px; border: none; border-radius: 2px; background-color:#b2afa1; color: white; cursor: pointer; box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px; transition: all 0.3s;
+}
+.main .startBtn:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 6px 10px -3px;
+}
 .how-to-play {
   background-color: #b0b5b666;
   border-radius: 10px;
@@ -112,7 +90,3 @@ main .scores-container {
   list-style-type: none;
   margin: 20px 0px;
 }
-/* .button-30:focus {
-  box-shadow: #808084 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #808084 0 -3px 0 inset;
-} */
-
