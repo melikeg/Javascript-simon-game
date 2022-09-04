@@ -7,11 +7,12 @@ const btnCont = document.querySelector(".btn-container");
 const scoresCont = document.querySelector(".scores-container");
 const levelSpan = document.querySelector(".level");
 const highestSpan = document.querySelector(".highest");
+const info = document.querySelector(".info");
 
-var sound1 = new Audio("./audio/simonSound1.mp3");
-var sound2 = new Audio("./audio/simonSound2.mp3");
-var sound3 = new Audio("./audio/simonSound3.mp3");
-var sound4 = new Audio("./audio/simonSound4.mp3");
+const sound1 = new Audio("./audio/simonSound1.mp3");
+const sound2 = new Audio("./audio/simonSound2.mp3");
+const sound3 = new Audio("./audio/simonSound3.mp3");
+const sound4 = new Audio("./audio/simonSound4.mp3");
 
 let selectedBtnSound = 0;
 let playerChoices = [];
@@ -26,7 +27,6 @@ startBtn.addEventListener("click", () => {
   startBtn.style.display = "none";
   scoresCont.style.visibility = "visible";
   play = true;
-  btnCont.classList.add("unclick");
   nextStep();
 });
 btnCont.addEventListener("click", (e) => playerMovements(e));
@@ -54,7 +54,6 @@ function playLevel(nextChoice) {
 }
 function playerMovements(e) {
   let id = Number(e.target.dataset.id);
-  // let id = e.target.dataset.id;
 
   compare(id, index);
   index += 1;
@@ -70,8 +69,7 @@ function playerMovements(e) {
       level += 1;
     } else if (level === 1) {
       play = false;
-      resetGame("You passed all levels");
-      console.log("You passed all levels");
+      showInfo("You passed all levels", "replay");
     }
     index = 0;
   }
@@ -80,13 +78,14 @@ function playerMovements(e) {
 }
 function compare(id, index) {
   if (id == nextChoice[index]) {
-    console.log("Keep going");
+    showInfo("Keep going", "continiue");
   }
 
   if (id != nextChoice[index]) {
     console.log("id", id);
     console.log("nextChoice[i]", nextChoice[index]);
-    console.log("Oops! Game over, you pressed the wrong tile");
+    // resetGame();
+    showInfo("Oops! Game over, you pressed the wrong tile", "replay");
   }
 }
 
@@ -100,6 +99,7 @@ function activeButton(id) {
     selectedBtnId.classList.remove("active");
   }, 800);
 }
+
 function playSound(id) {
   switch (id) {
     case 1 || "1":
@@ -117,24 +117,33 @@ function playSound(id) {
   }
   selectedBtnSound.play();
 }
-function resetGame(text) {
+function showInfo(text, status) {
+  info.style.display = "block";
+  info.innerHTML = text;
+  if (status == "replay") {
+    resetGame();
+    startBtn.style.display = "block";
+    startBtn.innerHTML = `replay <i class="fa-solid fa-reply"></i>`;
+  }
+}
+function resetGame() {
   playerChoices = [];
   newPlayerChoice = [];
   computerChoices = [];
   nextChoice = [];
   level = 0;
   play = false;
-  startBtn.style.display = "block";
   scoresCont.style.visibility = "hidden";
-  console.log(text);
-  // tileContainer.classList.add("unclickable");
+  btnCont.classList.add("unclick");
 }
+
 questionBtn.addEventListener("click", () => {
   mainPart.style.display = "none";
   closeBtn.style.display = "block";
   howToPlay.style.display = "block";
   //   questionBtn.style.display = "none";
 });
+
 closeBtn.addEventListener("click", () => {
   location.reload();
 });
