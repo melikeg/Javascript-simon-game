@@ -90,3 +90,6 @@ header .fa-brands:hover, header .fa-solid:hover {
   list-style-type: none;
   margin: 20px 0px;
 }
+.unclick {
+  pointer-events: none;
+}
