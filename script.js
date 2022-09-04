@@ -18,18 +18,22 @@ let playerChoices = [];
 let newPlayerChoice = [];
 let computerChoices = [];
 let nextChoice = [];
-let level = 1;
+let level = 0;
+let index = 0;
+let play = false;
 
 startBtn.addEventListener("click", () => {
   startBtn.style.display = "none";
   scoresCont.style.visibility = "visible";
+  play = true;
+  btnCont.classList.add("unclick");
   nextStep();
 });
 btnCont.addEventListener("click", (e) => playerMovements(e));
 
 function nextStep() {
-  computerChoices += nextChoice;
   nextChoice.push(randomCreater());
+  computerChoices += nextChoice;
   playLevel(nextChoice);
 }
 
@@ -46,35 +50,49 @@ function playLevel(nextChoice) {
       activeButton(nextChoice[i]);
     }, (i + 1) * 1000);
   }
-  console.log("çalıştı");
+  btnCont.classList.remove("unclick");
 }
 function playerMovements(e) {
-  playerChoices += newPlayerChoice;
   let id = Number(e.target.dataset.id);
+  // let id = e.target.dataset.id;
+
+  compare(id, index);
+  index += 1;
   newPlayerChoice.push(id);
+  playerChoices = [...newPlayerChoice];
   playSound(id);
 
-  console.log(newPlayerChoice);
-  console.log("nextChoice", nextChoice);
+  if (newPlayerChoice.length == nextChoice.length && play === true) {
+    newPlayerChoice = [];
 
-  nextChoice.forEach((i) => {
-    if (newPlayerChoice[i] === nextChoice[i]) {
-      if (newPlayerChoice.length === nextChoice.length) {
-        level += 1;
-        newPlayerChoice = [];
-        nextStep();
-      }
-      console.log("true");
-    } else {
-      console.log("false");
-      return;
+    if (level < 1) {
+      nextStep();
+      level += 1;
+    } else if (level === 1) {
+      play = false;
+      resetGame("You passed all levels");
+      console.log("You passed all levels");
     }
-  });
+    index = 0;
+  }
+
+  levelSpan.innerHTML = level;
+}
+function compare(id, index) {
+  if (id == nextChoice[index]) {
+    console.log("Keep going");
+  }
+
+  if (id != nextChoice[index]) {
+    console.log("id", id);
+    console.log("nextChoice[i]", nextChoice[index]);
+    console.log("Oops! Game over, you pressed the wrong tile");
+  }
 }
 
 function activeButton(id) {
   const selectedBtnId = document.querySelector(`[data-id='${id}']`);
-  console.log("selectedBtnId:", selectedBtnId);
+
   playSound(id);
   selectedBtnId.classList.add("active");
 
@@ -99,7 +117,18 @@ function playSound(id) {
   }
   selectedBtnSound.play();
 }
-
+function resetGame(text) {
+  playerChoices = [];
+  newPlayerChoice = [];
+  computerChoices = [];
+  nextChoice = [];
+  level = 0;
+  play = false;
+  startBtn.style.display = "block";
+  scoresCont.style.visibility = "hidden";
+  console.log(text);
+  // tileContainer.classList.add("unclickable");
+}
 questionBtn.addEventListener("click", () => {
   mainPart.style.display = "none";
   closeBtn.style.display = "block";
