@@ -1,6 +1,7 @@
 const questionBtn = document.querySelector("#question");
 const closeBtn = document.querySelector("#close");
 const startBtn = document.querySelector(".startBtn");
+const replayBtn = document.querySelector(".replayBtn");
 const mainPart = document.querySelector(".main");
 const howToPlay = document.querySelector(".how-to-play");
 const btnCont = document.querySelector(".btn-container");
@@ -23,12 +24,17 @@ let level = 0;
 let index = 0;
 let play = false;
 
+highestSpan.innerHTML = localStorage.getItem("highest")
+  ? localStorage.getItem("highest")
+  : 0;
+
 startBtn.addEventListener("click", () => {
   startBtn.style.display = "none";
   scoresCont.style.visibility = "visible";
   play = true;
   nextStep();
 });
+
 btnCont.addEventListener("click", (e) => playerMovements(e));
 
 function nextStep() {
@@ -39,18 +45,19 @@ function nextStep() {
 
 function randomCreater() {
   randomNumber = Math.floor(Math.random() * 4 + 1); //random number from 1 to 4
-  console.log(randomNumber);
 
   return randomNumber;
 }
 
 function playLevel(nextChoice) {
+  btnCont.classList.add("unclick");
+
   for (let i = 0; i < nextChoice.length; i++) {
     setTimeout(() => {
       activeButton(nextChoice[i]);
+      i + 1 === nextChoice.length && btnCont.classList.remove("unclick");
     }, (i + 1) * 1000);
   }
-  btnCont.classList.remove("unclick");
 }
 function playerMovements(e) {
   let id = Number(e.target.dataset.id);
@@ -64,11 +71,16 @@ function playerMovements(e) {
   if (newPlayerChoice.length == nextChoice.length && play === true) {
     newPlayerChoice = [];
 
-    if (level < 1) {
+    if (level < 19) {
       nextStep();
       level += 1;
-    } else if (level === 1) {
+    } else if (level === 19) {
       play = false;
+      localStorage.getItem("highest") < level &&
+        localStorage.setItem("highest", level);
+      highestSpan.innerHTML = localStorage.getItem("highest")
+        ? localStorage.getItem("highest")
+        : 0;
       showInfo("You passed all levels", "replay");
     }
     index = 0;
@@ -82,9 +94,11 @@ function compare(id, index) {
   }
 
   if (id != nextChoice[index]) {
-    console.log("id", id);
-    console.log("nextChoice[i]", nextChoice[index]);
-    // resetGame();
+    localStorage.getItem("highest") < level &&
+      localStorage.setItem("highest", level);
+    highestSpan.innerHTML = localStorage.getItem("highest")
+      ? localStorage.getItem("highest")
+      : 0;
     showInfo("Oops! Game over, you pressed the wrong tile", "replay");
   }
 }
@@ -122,8 +136,7 @@ function showInfo(text, status) {
   info.innerHTML = text;
   if (status == "replay") {
     resetGame();
-    startBtn.style.display = "block";
-    startBtn.innerHTML = `replay <i class="fa-solid fa-reply"></i>`;
+    replayBtn.style.display = "block";
   }
 }
 function resetGame() {
@@ -133,17 +146,19 @@ function resetGame() {
   nextChoice = [];
   level = 0;
   play = false;
-  scoresCont.style.visibility = "hidden";
   btnCont.classList.add("unclick");
 }
 
 questionBtn.addEventListener("click", () => {
-  mainPart.style.display = "none";
   closeBtn.style.display = "block";
-  howToPlay.style.display = "block";
-  //   questionBtn.style.display = "none";
+  howToPlay.style.visibility = "visible";
 });
 
 closeBtn.addEventListener("click", () => {
+  closeBtn.style.display = "none";
+  howToPlay.style.visibility = "hidden";
+});
+
+replayBtn.addEventListener("click", () => {
   location.reload();
 });
