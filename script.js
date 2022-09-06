@@ -151,12 +151,12 @@ function resetGame() {
 
 questionBtn.addEventListener("click", () => {
   closeBtn.style.display = "block";
-  howToPlay.style.visibility = "visible";
+  howToPlay.classList.add("active");
 });
 
 closeBtn.addEventListener("click", () => {
   closeBtn.style.display = "none";
-  howToPlay.style.visibility = "hidden";
+  howToPlay.classList.remove("active");
 });
 
 replayBtn.addEventListener("click", () => {
